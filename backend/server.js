@@ -11,8 +11,7 @@ app.use(cors());
 configure.config();
 
 app.get('/', (req, res) => {
-  res.send('Welcome to the Book API');
-  res.send('goto /getbook to get the book data');
+  res.send('Welcome to the stock finder API. Go to /getstock to get the book data');
 });
 
 
