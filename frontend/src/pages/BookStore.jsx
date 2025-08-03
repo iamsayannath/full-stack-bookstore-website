@@ -17,6 +17,7 @@ const BookStore = () => {
     const matchesSearch = title.includes(searchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === 'All' || categories.includes(selectedCategory);
+
     return matchesSearch && matchesCategory;
   });
 
@@ -31,7 +32,7 @@ const BookStore = () => {
               placeholder="Search by title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md w-60"
+              className="p-2 border border-gray-300 rounded-md w-60 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <select
               value={selectedCategory}
@@ -48,20 +49,17 @@ const BookStore = () => {
             </select>
           </div>
           <div className='flex justify-center gap-3 flex-wrap mt-3'>
-            {
-              // Check if books exists and is an array before mapping
+            {filteredBooks.length === 0 ? (
+              <p className="text-center mt-5 text-gray-600">No books found matching your criteria.</p>
+            ) : (
               filteredBooks.map((book) => {
-                // Use optional chaining to safely access nested properties
                 const thumbnailUrl = book?.volumeInfo?.imageLinks?.thumbnail;
                 const title = book?.volumeInfo?.title;
                 const subtitle = book?.volumeInfo?.subtitle;
-
-                // Only render the BookCard if a thumbnail URL exists
                 if (thumbnailUrl) {
                   return (
                     <Link to={`/book/${book.id}`} key={book.id}>
                       <BookCard
-                        key={book.id} // Add a unique key for list items
                         title={title}
                         subtitle={subtitle}
                         image={thumbnailUrl}
@@ -69,9 +67,10 @@ const BookStore = () => {
                     </Link>
                   );
                 }
-                return null; // Return null for books without a thumbnail
+                return null;
               })
-            }
+            )}
+
           </div>
         </div>
       )}

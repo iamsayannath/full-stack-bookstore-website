@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MyContext } from '../context/MyContext.jsx';
+import '../index.css';
 
 const BookDetails = () => {
 
@@ -15,16 +16,16 @@ const BookDetails = () => {
     setBook(selectedBook);
   }, [id, books]);
 
-  if (!books) return <p>Loading...</p>;
-  if (!book) return <p>Book not found.</p>;
+  if (!books) return <div className='spinner'></div>;
+  if (!book) return <div className='spinner'></div>;
 
 
   console.log(book);
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-center gap-10 max-md:px-4 m-10" >
-      <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
-        <img className="max-w-md w-full object-cover rounded-2xl"
+    <section className="flex flex-col md:flex-row items-center justify-center gap-10 max-md:px-4 m-5" >
+      <div className="shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
+        <img className="w-full object-cover rounded-2xl"
           src={book?.volumeInfo?.imageLinks?.thumbnail}
           alt="book image" />
       </div>
